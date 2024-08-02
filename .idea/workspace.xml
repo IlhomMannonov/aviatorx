@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad" />
+    <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,12 +53,13 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
     "npm.dev.executor": "Run",
     "ts.external.directory.path": "B:\\Projects Vue\\s_app\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.dev">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -78,8 +82,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -99,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1722337424480</updated>
       <workItem from="1722337426991" duration="4874000" />
-      <workItem from="1722438110121" duration="11867000" />
+      <workItem from="1722438110121" duration="12558000" />
     </task>
     <servers />
   </component>
