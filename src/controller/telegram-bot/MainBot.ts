@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 import { Request, Response } from 'express';
 
-const bot = new Telegraf('YOUR_TELEGRAM_BOT_TOKEN');
+const bot = new Telegraf('7358372482:AAFuMMugTfaRW_ddW0VhlYLOTNrDGK4Fc30');
 
 bot.start((ctx) => ctx.reply('Welcome to the bot!'));
 bot.help((ctx) => ctx.reply('Send me a sticker'));
