@@ -7,6 +7,7 @@ import {connectDB} from './config/db';
 import authRouter from "./routes/AuthRouter";
 import utilsController from "./routes/UtilsRouter";
 import gameApiRouter from "./routes/GameApiRouter";
+import telegramBotRouter from "./routes/TelegramBotRouter";
 
 const app: Application = express();
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use('/api/v1', authRouter);
 app.use('/api/v1', utilsController);
 app.use('/api/v1', gameApiRouter);
+app.use('/', telegramBotRouter);
 
 app.use(errorHandler);
 
