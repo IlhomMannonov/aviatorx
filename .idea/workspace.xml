@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/gameApi/AviatrxController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entity/Game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/AviatrxRouter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,18 +29,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "IlhomMannonov"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;IlhomMannonov&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/IlhomMannonov/aviatorx.git",
-    "accountId": "d7a0245f-b7e7-4e56-81f9-231dfa7225a8"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/IlhomMannonov/aviatorx.git&quot;,
+    &quot;accountId&quot;: &quot;d7a0245f-b7e7-4e56-81f9-231dfa7225a8&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -46,7 +52,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -57,6 +65,11 @@
     "npm.dev.executor": "Run",
     "ts.external.directory.path": "B:\\Projects Vue\\s_app\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -108,7 +121,8 @@
       <option name="presentableId" value="Default" />
       <updated>1722337424480</updated>
       <workItem from="1722337426991" duration="4874000" />
-      <workItem from="1722438110121" duration="16388000" />
+      <workItem from="1722438110121" duration="16771000" />
+      <workItem from="1722657882493" duration="11035000" />
     </task>
     <servers />
   </component>

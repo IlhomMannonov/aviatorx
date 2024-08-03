@@ -24,7 +24,7 @@ export class User extends BaseEntityFull {
     @Column({type: 'varchar', length: 255, unique: true, nullable: true})
     password!: string;
 
-    @Column({type: 'timestamp'})
+    @Column({type: 'timestamp', nullable: true})
     last_login_time!: Date;
 
     @Column({type: 'boolean', default: false})
@@ -33,20 +33,29 @@ export class User extends BaseEntityFull {
     @Column({type: 'boolean', default: false})
     email_verified!: boolean;
 
-
     @ManyToOne(() => Country)
     @JoinColumn({name: 'country_id'})
     country!: Country;
 
-    @Column({name: 'country_id'})
+    @Column({name: 'country_id', nullable: true})
     country_id!: number; // Foreign key sifatida saqlanadi
     @ManyToOne(() => Country)
 
     @JoinColumn({name: 'currency_id'})
     currency!: Currency;
 
-    @Column({name: 'currency_id'})
+    @Column({name: 'currency_id', nullable: true})
     currency_id!: number; // Foreign key sifatida saqlanadi
+
+
+    @Column({type: 'varchar', length: 255, nullable: true})
+    chat_id!: string;
+
+    @Column({type: 'varchar', length: 255, nullable: true})
+    state!: string;
+
+    @Column({type: 'boolean', default: false})
+    is_bot_user!: boolean;
 
     @OneToMany(() => Wallet, wallet => wallet.user)
     wallets!: Wallet[];
