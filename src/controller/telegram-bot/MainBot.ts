@@ -81,7 +81,7 @@ export const userHome = async (ctx: Context) => {
     await ctx.reply(
         "Barcha O'yinlar ro'yxati",
         Markup.inlineKeyboard([
-            [Markup.button.webApp("✈️ Aviator ✈️", 'https://game.aviatrix.bet/?cid=demolanding')]
+            [Markup.button.webApp("✈️ Aviator ✈️", 'https://script.viserlab.com')]
         ])
     );
 };

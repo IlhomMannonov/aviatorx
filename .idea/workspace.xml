@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/gameApi/AviatrxController.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/Game.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/AviatrxRouter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.ts" afterDir="false" />
-    </list>
+    <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +113,7 @@
       <updated>1722337424480</updated>
       <workItem from="1722337426991" duration="4874000" />
       <workItem from="1722438110121" duration="16771000" />
-      <workItem from="1722657882493" duration="11035000" />
+      <workItem from="1722657882493" duration="12404000" />
     </task>
     <servers />
   </component>
