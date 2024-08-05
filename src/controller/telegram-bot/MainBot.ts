@@ -81,7 +81,7 @@ export const userHome = async (ctx: Context) => {
     await ctx.reply(
         "Barcha O'yinlar ro'yxati",
         Markup.inlineKeyboard([
-            [Markup.button.webApp("✈️ Aviator ✈️", 'https://nuxgame.com/template?url=https%3A%2F%2Ftemplatenew.nuxbet.com%2F')]
+            [Markup.button.webApp("✈️ Aviator ✈️", 'https://casino.megamining.cc')]
         ])
     );
 };
