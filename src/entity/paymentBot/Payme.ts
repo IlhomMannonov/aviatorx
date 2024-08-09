@@ -1,14 +1,37 @@
-import {Column, Entity} from "typeorm";
-import {BaseEntityFull} from "./template/BaseEntityFull";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {BaseEntityFull} from "../template/BaseEntityFull";
+import {User} from "../User";
 
-@Entity('country')
-export class Country extends BaseEntityFull {
+@Entity('payme')
+export class Payme extends BaseEntityFull {
 
-    @Column({type: 'varchar', length: 255})
-    name!: string;
+    @ManyToOne(() => User, user => user.user_roles)
+    @JoinColumn({name: 'user_id'})
+    user!: User;
 
-    @Column({type: 'varchar', length: 255})
-    flag!: string;
+    @Column({name: 'user_id'})
+    user_id!: number; // Foreign key sifatida saqlanadi
+
+    @Column({type: 'varchar', length: 255, nullable: true})
+    phone_number!: string
+
+    @Column({type: 'varchar', length: 255, nullable: true})
+    password!: string
+
+    @Column({type: 'text', nullable: true})
+    device_id!: string
+
+    @Column({type: 'text', nullable: true})
+    device_key!: string
+
+    @Column({type: 'text', nullable: true})
+    device!: string
+
+    @Column({type: 'text', nullable: true})
+    session!: string
+
+    @Column({type: 'boolean', nullable: true})
+    is_active_session!: boolean
 
 
 

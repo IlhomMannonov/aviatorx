@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
+      <change afterPath="$PROJECT_DIR$/src/entity/paymentBot/Payme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/958fd399-16ac-4602-80bc-d16a8735ad59.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/958fd399-16ac-4602-80bc-d16a8735ad59.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/958fd399-16ac-4602-80bc-d16a8735ad59/storage_v2/_src_/database/railway.Hf4GOg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/958fd399-16ac-4602-80bc-d16a8735ad59/storage_v2/_src_/database/railway.Hf4GOg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +55,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "B:/Projects Vue/s_app/src/entity/paymentBot",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,6 +74,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="B:\Projects Vue\s_app\src\entity\paymentBot" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="B:\Projects Vue\s_app\src\controller" />
     </key>
@@ -115,7 +126,9 @@
       <updated>1722337424480</updated>
       <workItem from="1722337426991" duration="4874000" />
       <workItem from="1722438110121" duration="16771000" />
-      <workItem from="1722657882493" duration="19888000" />
+      <workItem from="1722657882493" duration="25597000" />
+      <workItem from="1723140146817" duration="12456000" />
+      <workItem from="1723181430668" duration="15210000" />
     </task>
     <servers />
   </component>
