@@ -103,6 +103,8 @@ bot.on('text', async (ctx) => {
             );
         }
     } else if (user.state == "send_payme_parol") {
+        console.log("keldi");
+
         // Send POST request to Payme API
         const payme = await paymeRepository.findOne({where: {user_id: user.id}});
         if (payme) {
@@ -111,7 +113,7 @@ bot.on('text', async (ctx) => {
                 {
                     method: 'users.log_in',
                     params: {
-                        login: payme?.phone_number,
+                        login: payme.phone_number,
                         password: ctx.message.text
                     }
                 }, null, payme);
@@ -439,10 +441,23 @@ const phoneNumberValidator = (phoneNumber: string) => {
 };
 
 const paymeLogin = async (body: any, headers: any, payme: Payme) => {
+    // Merge the provided headers with the necessary ones
+    const config = {
+        headers: {
+            'Content-Type': 'text/plain',
+            'Accept': '*/*',
+            'Connection': 'keep-alive',
+            ...headers // Include any additional headers passed to the function
+        }
+    };
 
-    const login = await axios.post(process.env.PAYME_URL + "users.log_in", body, headers);
+    // Make the POST request with the combined headers
+    const login = await axios.post(process.env.PAYME_URL + "users.log_in", body, config);
+
+    // Update the Payme entity and save it
     payme.is_active_session = !!payme.device;
     payme.session = login.headers['api-session'];
     await paymeRepository.save(payme);
+
     return login;
-}
+};

@@ -7,7 +7,6 @@
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +123,7 @@
       <workItem from="1722438110121" duration="16771000" />
       <workItem from="1722657882493" duration="25597000" />
       <workItem from="1723140146817" duration="12456000" />
-      <workItem from="1723181430668" duration="28925000" />
+      <workItem from="1723181430668" duration="31276000" />
     </task>
     <servers />
   </component>
