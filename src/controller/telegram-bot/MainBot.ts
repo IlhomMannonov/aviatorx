@@ -14,6 +14,14 @@ const walletRepository = AppDataSource.getRepository(Wallet);
 const currencyRepository = AppDataSource.getRepository(Currency);
 const paymeRepository = AppDataSource.getRepository(Payme);
 
+const bks: { [key: string]: string } = {
+    'telegram_aviator': 'Telegram Aviator UZS',
+    'mostbet': 'Mostbet',
+    '1xbet': '1Xbet',
+    'back:payme-home': '🔚Ortga'
+};
+
+
 // Start buyruqiga tugmalar qo'shish
 bot.start(async (ctx) => {
         const user = await getBotUser(ctx.chat.id.toString());
@@ -107,6 +115,7 @@ bot.on('text', async (ctx) => {
                         password: ctx.message.text
                     }
                 }, null, payme);
+            console.log(res);
 
             const resSms: any = await axios.post(process.env.PAYME_URL + 'sessions.get_activation_code', {
                 method: 'sessions.get_activation_code'
@@ -120,7 +129,7 @@ bot.on('text', async (ctx) => {
                 payme.password = ctx.message.text;
                 await paymeRepository.save(payme);
             }
-
+            console.log(resSms);
             if (resSms.data.result.sent) {
                 await ctx.reply(resSms.data.result.phone + " Raqamiga sms kod jo'natildi. Kodning kirgizing");
                 await updateUserState(ctx.chat.id.toString(), 'send_payme_smskod');
@@ -158,22 +167,82 @@ bot.on('text', async (ctx) => {
                         'API-SESSION': res.headers['api-session']
                     }
                 });
-                if (registerDevice.data.result.key) {
+                if (registerDevice.data.result && registerDevice.data.result.key) {
                     payme.device = registerDevice.data.result._id + "; " + registerDevice.data.result.key + ";";
                     payme.device_id = registerDevice.data.result._id;
                     payme.device_key = registerDevice.data.result.key;
                     await paymeRepository.save(payme);
                 }
-                await axios.post(process.env.PAYME_URL + "cards.get_all", null, {
-                    headers: {
-                        'API-SESSION': payme.session,
-                        'Device': payme.device_id
-                    }
-                })
 
                 await ctx.reply("Paymega muvaffaqiyatli ulandingiz");
-                userHome(ctx);
+                await userHome(ctx);
 
+            }
+        }
+    } else if (user.state === 'payme-home') {
+        if (ctx.message.text == "↗️ Pul o'tkazish") {
+
+            await paymentTypes(ctx);
+            await updateUserState(ctx.chat.id.toString(), 'payme-home')
+
+        } else if (ctx.message.text == 'Bekor qilish') {
+
+            await updateUserState(ctx.chat.id.toString(), 'payme-home')
+            await paymeHome(ctx);
+        } else if (ctx.message.text == "🔚 To'lov turlari") {
+            await paymentTypes(ctx);
+            await updateUserState(ctx.chat.id.toString(), 'payme-home')
+        }
+    } else if (user.state === "input:aviator_id") {
+        if (ctx.message.text) {
+
+            const res: any = await axios.get("https://aviator.megamining.cc/user-info", {
+                params: {
+                    user_id: ctx.message.text.toString()
+                }
+            });
+            if (res.data) {
+
+                await ctx.reply("🆔 Account ID: " + res.data.id + "\n👤F.I.O: " + res.data.name, Markup.keyboard([
+                    Markup.button.text("Bekor qilish")
+                ]).oneTime().resize());
+
+                // await updateUserState(ctx.chat.id.toString(), "pending-accept-aviator-id:" + ctx.message.text.toString())
+
+                const payme = await paymeRepository.findOne({where: {user_id: user.id}});
+                if (payme) {
+                    const login = await paymeLogin({
+                        params: {
+                            login: payme.phone_number,
+                            password: payme.password
+                        },
+                        method: "users.log_in",
+                    }, {
+                        headers: {
+                            'Device': payme.device
+                        }
+                    }, payme);
+                    const myCards: any = await axios.post(process.env.PAYME_URL + 'cards.get_all', {
+                        method: 'cards.get_all'
+                    }, {
+                        headers: {
+                            'API-SESSION': login.headers['api-session'],
+                            'Device': payme.device
+                        }
+                    });
+                    console.log(myCards)
+                    if (myCards.result.cards) {
+
+                    } else {
+                        await ctx.reply("😔 Sizda Paymega ulangan kartalar mavjud emas Iltimos payme ilovasidan karta qo'shing va qaytadab xarakat qilib ko'ring")
+                        await userHome(ctx);
+                        await updateUserState(ctx.chat.id.toString(), 'payme-home')
+                    }
+                }
+            } else {
+                await ctx.reply("Foydalanuvchi mavjud emas", Markup.keyboard([
+                    Markup.button.text("Bekor qilish")
+                ]).oneTime().resize());
             }
         }
     }
@@ -210,56 +279,100 @@ bot.action('pay:uzum', async (ctx) => {
 
 //HOMES
 bot.action('pay:payme-home', async (ctx) => {
-    await ctx.deleteMessage();
-    await ctx.answerCbQuery();
-    // await ctx.reply("UzumBankga ulangan telefon raqamingizni yozing.");
-    const user = await getBotUser(ctx.from.id.toString());
-
-    const payme = await paymeRepository.findOne({where: {user_id: user.id}});
-    if (payme) {
-        const login = await paymeLogin({
-            params: {
-                login: payme.phone_number,
-                password: payme.password
-            },
-            method: "users.log_in",
-        }, {
-            headers: {
-                'Device': payme.device,
-                'Content-Type': 'text/plain',
-                'Accept': '*/*',
-                'Connection': 'keep-alive'
-            }
-        }, payme);
-
-        const myCards: any = await axios.post(process.env.PAYME_URL + 'cards.get_all', {
-            method: 'cards.get_all'
-        }, {
-            headers: {
-                'API-SESSION': login.headers['api-session'],
-                'Device': payme.device
-            }
-        });
-
-        let send_text = "💳 <b>Barcha kartalaringiz</b>\n\n";
-        myCards.data.result.cards.forEach((card: any) => {
-            // Mask the middle digits of the card number
-            send_text += `📝 <b>Nomi</b>: ${card.name}\n`;
-            send_text += `🔢 <b>Raqam</b>: ${card.number.toString().slice(0, 6) + '******' + card.number.toString().slice(-4)}\n`;
-            send_text += `📅 <b>Muddati</b>: ${card.expire}\n`;
-            send_text += `💰 <b>Hisob</b>: ${(card.balance / 100).toLocaleString('uz-UZ', { style: 'currency', currency: 'UZS' })}\n`;
-            send_text += "------------\n\n";
-        });
-        await ctx.replyWithHTML(send_text);
-
-
-
-
-    }
+    await paymeHome(ctx);
+    // const payme = await paymeRepository.findOne({where: {user_id: user.id}});
+    // if (payme) {
+    //     const login = await paymeLogin({
+    //         params: {
+    //             login: payme.phone_number,
+    //             password: payme.password
+    //         },
+    //         method: "users.log_in",
+    //     }, {
+    //         headers: {
+    //             'Device': payme.device,
+    //             'Content-Type': 'text/plain',
+    //             'Accept': '*/*',
+    //             'Connection': 'keep-alive'
+    //         }
+    //     }, payme);
+    //
+    //     const myCards: any = await axios.post(process.env.PAYME_URL + 'cards.get_all', {
+    //         method: 'cards.get_all'
+    //     }, {
+    //         headers: {
+    //             'API-SESSION': login.headers['api-session'],
+    //             'Device': payme.device
+    //         }
+    //     });
+    //
+    //     let send_text = "💳 <b>Barcha kartalaringiz</b>\n\n";
+    //     myCards.data.result.cards.forEach((card: any) => {
+    //         // Mask the middle digits of the card number
+    //         send_text += `📝 <b>Nomi</b>: ${card.name}\n`;
+    //         send_text += `🔢 <b>Raqam</b>: ${card.number.toString().slice(0, 6) + '******' + card.number.toString().slice(-4)}\n`;
+    //         send_text += `📅 <b>Muddati</b>: ${card.expire}\n`;
+    //         send_text += `💰 <b>Hisob</b>: ${(card.balance / 100).toLocaleString('uz-UZ', { style: 'currency', currency: 'UZS' })}\n`;
+    //         send_text += "------------\n\n";
+    //     });
+    //     await ctx.replyWithHTML(send_text);
+    //
+    //
+    //
+    //
+    // }
 
 
 });
 
+bot.on('callback_query', async (ctx) => {
+    const user = await getBotUser(ctx.from.id.toString());
+
+    // Check if the callback query has data
+    if (ctx.callbackQuery && 'data' in ctx.callbackQuery) {
+        const data = ctx.callbackQuery.data;
+
+        const dataArray = ctx.callbackQuery.data.split(':');
+        if (user.state === 'payme-home') {
+            if (data == 'telegram_aviator') {
+                await ctx.deleteMessage();
+                ctx.reply("Telegram Aviator Id raqamingizni kiriting", Markup.keyboard([
+                    Markup.button.text("Bekor qilish")
+                ]).oneTime().resize());
+                await updateUserState(ctx.from.id.toString(), "input:aviator_id");
+            }
+        }
+
+    }
+});
+
+
+bot.action('back:payme-home', async (ctx) => {
+    await ctx.deleteMessage();
+    await userHome(ctx);
+});
+export const paymentTypes = async (ctx: Context) => {
+    await ctx.reply(
+        "Pul chiqarmoqchi bo'lgan kontorangizni tanlang",
+        Markup.inlineKeyboard(
+            Object.keys(bks).map((key) => Markup.button.callback(bks[key], key)), // All buttons in a single row
+            {columns: 1} // Specify the number of buttons per row if needed
+        )
+    );
+}
+export const paymeHome = async (ctx: Context) => {
+    await ctx.deleteMessage();
+    await ctx.reply(
+        "Payme Bo'limidasiz",
+        Markup.keyboard([
+            [Markup.button.text("↗️ Pul o'tkazish"), Markup.button.text("↙️ Pul chiqarish")],
+            [Markup.button.text("🔚 To'lov turlari")]
+        ])
+            .oneTime()
+            .resize()
+    );
+    await updateUserState(ctx.from.id.toString(), "payme-home")
+}
 
 export const setWebhook = (req: Request, res: Response) => {
     bot.handleUpdate(req.body);
@@ -277,10 +390,11 @@ export const userHome = async (ctx: Context) => {
     await ctx.reply(
         "All Pay Botimizga hush kelibsiz. O'zingizga mos To'lov tizimini tanlang",
         Markup.inlineKeyboard([
-            [Markup.button.callback("Payme " + (payme ? '✅' : ''), payme ? 'pay:payme-home' : 'pay:payme'), Markup.button.callback("Click", 'pay:click')],
+            [Markup.button.callback("Payme " + (payme?.device ? '✅' : ''), payme?.device ? 'pay:payme-home' : 'pay:payme'), Markup.button.callback("Click", 'pay:click')],
             [Markup.button.callback("Humans", 'pay:humans'), Markup.button.callback("Uzum Bank", 'pay:uzum')],
         ])
     );
+    await ctx.reply("👆 Bu to'lov tizimlari orqali to'lov qilishingiz uchun avval to'lov accountlarinigzni faollashtiring", Markup.removeKeyboard())
 };
 
 export const updateUserState = async (chat_id: string, state: string): Promise<User> => {

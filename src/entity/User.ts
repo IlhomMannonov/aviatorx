@@ -22,6 +22,9 @@ export class User extends BaseEntityFull {
     email!: string;
 
     @Column({type: 'varchar', length: 255, unique: true, nullable: true})
+    aviator_id!: string;
+
+    @Column({type: 'varchar', length: 255, unique: true, nullable: true})
     password!: string;
 
     @Column({type: 'timestamp', nullable: true})
