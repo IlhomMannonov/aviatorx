@@ -33,6 +33,12 @@ export class Payme extends BaseEntityFull {
     @Column({type: 'boolean', nullable: true})
     is_active_session!: boolean
 
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0})
+    payment_amount!: number;
+
+
+    @Column({type: 'text', nullable: true})
+    changed_card_id!: string
 
 
 }

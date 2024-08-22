@@ -42,6 +42,8 @@ bot.start(async (ctx) => {
     }
 );
 
+
+
 bot.on('contact', async (ctx) => {
     const user = await getBotUser(ctx.chat.id.toString());
     // if (user.state == 'send_phone') {
@@ -103,7 +105,6 @@ bot.on('text', async (ctx) => {
             );
         }
     } else if (user.state == "send_payme_parol") {
-        console.log("keldi");
 
         // Send POST request to Payme API
         const payme = await paymeRepository.findOne({where: {user_id: user.id}});
@@ -220,10 +221,10 @@ bot.on('text', async (ctx) => {
                         },
                         method: "users.log_in",
                     }, {
-                        headers: {
-                            'Device': payme.device
-                        }
+                        'Device': payme.device
                     }, payme);
+                    console.log(login.headers['api-session'])
+
                     const myCards: any = await axios.post(process.env.PAYME_URL + 'cards.get_all', {
                         method: 'cards.get_all'
                     }, {
@@ -232,8 +233,25 @@ bot.on('text', async (ctx) => {
                             'Device': payme.device
                         }
                     });
-                    console.log(myCards)
-                    if (myCards.result.cards) {
+                    console.log(myCards.data.result.cards)
+                    if (myCards.data.result.cards) {
+
+                        await ctx.reply("To'lash uchun kartani tanlang!");
+
+
+                        myCards.data.result.cards.forEach(function (card: any) {
+                            let send_text = "";
+
+                            send_text += `${card.vendor_info.name}: ${card.number}\n`
+                                + `Balance: ${(card.balance / 100).toLocaleString('uz-UZ', {
+                                    style: 'currency',
+                                    currency: 'UZS'
+                                })}\n\n`;
+                            ctx.reply(send_text,
+                                Markup.inlineKeyboard([
+                                    [Markup.button.callback("💳To'lash", 'card-choiced:' + card.id)],
+                                ]));
+                        });
 
                     } else {
                         await ctx.reply("😔 Sizda Paymega ulangan kartalar mavjud emas Iltimos payme ilovasidan karta qo'shing va qaytadab xarakat qilib ko'ring")
@@ -447,7 +465,7 @@ const paymeLogin = async (body: any, headers: any, payme: Payme) => {
             'Content-Type': 'text/plain',
             'Accept': '*/*',
             'Connection': 'keep-alive',
-            ...headers // Include any additional headers passed to the function
+            ...headers
         }
     };
 

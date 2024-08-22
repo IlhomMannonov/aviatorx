@@ -1,6 +1,5 @@
 import {BaseEntityFull} from "./template/BaseEntityFull";
-import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
-import {Module} from "./Module";
+import {Column, Entity} from "typeorm";
 
 
 @Entity('game')

@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/gameApi/AviatrxController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/gameApi/AviatrxController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/paymentBot/Payme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/paymentBot/Payme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AviatrxRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AviatrxRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,30 +52,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "B:/Projects Vue/s_app/src/entity/paymentBot",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
-    "npm.dev.executor": "Run",
-    "ts.external.directory.path": "B:\\Projects Vue\\s_app\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;B:/Projects Vue/s_app/src/entity/paymentBot&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;B:\\Projects Vue\\s_app\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="B:\Projects Vue\s_app\src\entity\paymentBot" />
@@ -76,7 +84,7 @@
       <recent name="B:\Projects Vue\s_app\src\controller" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.build">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -99,8 +107,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -123,7 +131,16 @@
       <workItem from="1722438110121" duration="16771000" />
       <workItem from="1722657882493" duration="25597000" />
       <workItem from="1723140146817" duration="12456000" />
-      <workItem from="1723181430668" duration="31276000" />
+      <workItem from="1723181430668" duration="31902000" />
+      <workItem from="1723272671787" duration="17976000" />
+      <workItem from="1723299738392" duration="6916000" />
+      <workItem from="1723354602568" duration="7154000" />
+      <workItem from="1723617274307" duration="332000" />
+      <workItem from="1723915706746" duration="1913000" />
+      <workItem from="1724063686211" duration="2826000" />
+      <workItem from="1724082615492" duration="34000" />
+      <workItem from="1724225137283" duration="7057000" />
+      <workItem from="1724319851483" duration="857000" />
     </task>
     <servers />
   </component>

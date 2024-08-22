@@ -6,4 +6,5 @@ const router: Router = Router();
 router.route('/sports')
     .get(sports);
 
+
 export default router;

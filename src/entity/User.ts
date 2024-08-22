@@ -36,6 +36,8 @@ export class User extends BaseEntityFull {
     @Column({type: 'boolean', default: false})
     email_verified!: boolean;
 
+
+
     @ManyToOne(() => Country)
     @JoinColumn({name: 'country_id'})
     country!: Country;

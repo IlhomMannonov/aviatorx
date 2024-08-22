@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import {game_round} from '../controller/gameApi/AviatrxController';
+import {player_info} from '../controller/gameApi/AviatrxController';
 
 const router: Router = Router();
 
-router.route('/game/round')
-    .get(game_round);
+router.route('/game/aviatrx/playerInfo')
+    .post(player_info);
 
 export default router;
