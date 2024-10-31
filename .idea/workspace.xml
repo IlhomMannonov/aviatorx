@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
-      <change afterPath="$PROJECT_DIR$/src/middlewares/Security.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/gameApi/GameApiController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/gameApi/GameApiController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Game.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Wallet.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Wallet.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/PaymentMethod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/PaymentMethod.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +149,7 @@
       <workItem from="1729972031604" duration="1697000" />
       <workItem from="1730228142790" duration="2881000" />
       <workItem from="1730307111939" duration="9274000" />
-      <workItem from="1730371630118" duration="17044000" />
+      <workItem from="1730371630118" duration="20651000" />
     </task>
     <servers />
   </component>

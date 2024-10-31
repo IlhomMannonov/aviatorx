@@ -16,5 +16,7 @@ export class PaymentMethod extends BaseEntityFull {
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0})
     max!: number;
 
+    @Column({type: 'text', nullable: true})
+    url!: string;
     
 }

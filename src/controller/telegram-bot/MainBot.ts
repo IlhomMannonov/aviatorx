@@ -6,8 +6,9 @@ import {Context} from "node:vm";
 import {Wallet} from "../../entity/Wallet";
 import {Currency} from "../../entity/Currency";
 import {Payme} from "../../entity/paymentBot/Payme";
-import axios from "axios";
 import {Game} from "../../entity/Game";
+import {PaymentMethod} from "../../entity/PaymentMethod";
+import {PaymentType} from "../../entity/enums/PaymentType";
 
 const bot = new Telegraf('8195373493:AAGTqQ4j6wsKHC--pR7yREANBbWWXUfgEmE');
 const userRepository = AppDataSource.getRepository(User);
@@ -15,6 +16,7 @@ const walletRepository = AppDataSource.getRepository(Wallet);
 const currencyRepository = AppDataSource.getRepository(Currency);
 const paymeRepository = AppDataSource.getRepository(Payme);
 const gameRepository = AppDataSource.getRepository(Game);
+const paymentTypesRepository = AppDataSource.getRepository(PaymentMethod);
 
 const bks: { [key: string]: string } = {
     'telegram_aviator': 'Telegram Aviator UZS',
@@ -118,6 +120,7 @@ bot.action(["currency_UZS", "currency_USD", "currency_RUB"], async (ctx) => {
             const wallet = walletRepository.create({
                 amount: 0.0,
                 user_id: user.id,
+                is_current: true,
                 currency_id: currency?.id,
                 name: `${currencyCode.toUpperCase()} Wallet`,
                 is_demo: false
@@ -139,13 +142,12 @@ bot.action(["currency_UZS", "currency_USD", "currency_RUB"], async (ctx) => {
 });
 
 
-
 bot.action("games", async (ctx) => {
     if (ctx.chat != null) {
         // Faol o'yinlarni olish
         const activeGames = await gameRepository.find({
-            order: { id: "ASC" },
-            where: { deleted: false, status: "active" },
+            order: {id: "ASC"},
+            where: {deleted: false, status: "active"},
         });
         const user = await getBotUser(ctx.chat.id.toString());
 
@@ -170,9 +172,36 @@ bot.action("games", async (ctx) => {
     }
 });
 
+bot.action("deposit", async (ctx) => {
+    if (ctx.chat != null) {
+        const user = await getBotUser(ctx.chat.id.toString());
 
+        const paymentMethod = await paymentTypesRepository.find({
+            where: {status: 'active', deleted: false, type: PaymentType.IN},
+            order: {id: "ASC"}
+        })
+        if (user && paymentMethod.length > 0) {
+
+            const paymentMethodButtons = paymentMethod.map((p) => [
+                Markup.button.url(`${p.name}: ${p_n(p.min)} ➡️ ${p_n(p.max)}`, `${p.url}`)
+
+            ])
+            const backButton = [Markup.button.callback("Ortga 🔙", "go_home")];
+            await ctx.editMessageText(
+                "To'ldirmoqchi bo'lgan to'lov turingizni tanlang 👇",
+                Markup.inlineKeyboard([...paymentMethodButtons, backButton])
+            );
+        } else {
+            await ctx.reply("Hozircha Tolov turlari mavjud emas tez orada paydo bo'ladi");
+        }
+    }
+})
+function p_n(number: number) {
+    const wholeNumber = Math.trunc(number); // Kasr qismini olib tashlaydi
+    return new Intl.NumberFormat('en-US').format(wholeNumber); // Minglik ajratgich bilan formatlaydi
+}
 bot.action("go_home", async (ctx) => {
-    userHome(ctx, true)
+  await  userHome(ctx, true)
 })
 
 export const setWebhook = (req: Request, res: Response) => {
