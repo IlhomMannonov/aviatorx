@@ -27,4 +27,12 @@ export class Wallet extends BaseEntityFull {
     @Column({name: 'currency_id'})
     currency_id!: number;
 
+
+    @Column({name: 'is_demo', nullable: true})
+    is_demo!: boolean;
+
+
+    @Column({name: 'is_current', default: false})
+    is_current!: boolean;
+
 }

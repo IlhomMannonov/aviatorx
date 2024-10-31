@@ -9,12 +9,13 @@ import utilsController from "./routes/UtilsRouter";
 import gameApiRouter from "./routes/GameApiRouter";
 import telegramBotRouter from "./routes/TelegramBotRouter";
 import aviatrxRouter from "./routes/AviatrxRouter";
-
+import cors from 'cors'; // CORS ni import qilish
 const app: Application = express();
 
 // PostgreSQL bazasiga ulanish
 connectDB();
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
