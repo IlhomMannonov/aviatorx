@@ -7,11 +7,14 @@ import {Wallet} from "../../entity/Wallet";
 import {PaymentMethod} from "../../entity/PaymentMethod";
 import {PaymentType} from "../../entity/enums/PaymentType";
 import {Transaction} from "../../entity/Transaction";
+import {pay} from "telegraf/typings/button";
+import {Currency} from "../../entity/Currency";
 
 const userRepository = AppDataSource.getRepository(User);
 const walletRepository = AppDataSource.getRepository(Wallet);
 const paymentMethodRepository = AppDataSource.getRepository(PaymentMethod);
 const transactionRepository = AppDataSource.getRepository(Transaction);
+const currencyRepository = AppDataSource.getRepository(Currency);
 
 
 export const sports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -130,13 +133,15 @@ export const user_data = async (req: Request, res: Response, next: NextFunction)
                 status: 'active'
             }, order: {created_at: "DESC"}
         })
+        const currency = await currencyRepository.findOne({where: {id: wallet.currency_id}})
 
         res.json({
             success: true,
             data: {
                 withdrawMethod: paymentMethod,
                 wallet_id: wallet.id,
-                currency: wallet.name,
+                currency: currency?.name,
+                amount: wallet.amount,
                 user: {id: user.id, name: user.first_name + " " + user.last_name}
             }
         });
@@ -172,7 +177,7 @@ export const withdraw_request = async (req: Request, res: Response, next: NextFu
         }
 
         if (wallet.amount < parseFloat(amount) || isNaN(parseFloat(amount))) {
-            throw RestException.badRequest("Hisobingizda mablag' yetarli emas");
+            throw RestException.restThrow("Hisobingizda mablag' yetarli emas", 400);
         }
         const paymentMethod = await paymentMethodRepository.findOne({
             where: {
@@ -186,7 +191,9 @@ export const withdraw_request = async (req: Request, res: Response, next: NextFu
         }
 
 
-        wallet.amount = parseFloat(wallet.amount.toString());
+        if (parseFloat(amount) < paymentMethod.min || parseFloat(amount) > paymentMethod.max) {
+            throw RestException.restThrow("Mablag' chegarasida emas", 400);
+        }
 
         wallet.amount -= amount;
         await walletRepository.save(wallet)
