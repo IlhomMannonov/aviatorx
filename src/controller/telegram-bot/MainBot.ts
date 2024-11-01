@@ -183,7 +183,7 @@ bot.action("deposit", async (ctx) => {
         if (user && paymentMethod.length > 0) {
 
             const paymentMethodButtons = paymentMethod.map((p) => [
-                Markup.button.url(`${p.name}: ${p_n(p.min)} ➡️ ${p_n(p.max)}`, `${p.url}?start=txbet_${user.id}`)
+                Markup.button.url(`${p.name}: ${p_n(p.min)} ➡️ ${p_n(p.max)}`, `${p.url}`)
 
             ])
             const backButton = [Markup.button.callback("Ortga 🔙", "go_home")];
@@ -228,7 +228,7 @@ export const userHome = async (ctx: Context, is_update: boolean = false) => {
             "👇 Boshlash uchun tugmalarni tanlang!",
             Markup.inlineKeyboard([
                 [Markup.button.callback("O'yinlar", "games"), Markup.button.callback("Mablag' solish", 'deposit')],
-                [Markup.button.callback("Mablag' chiqarish", 'withdraw'), Markup.button.callback("To'lovlar", 'transaktions')],
+                [Markup.button.callback("Mablag' chiqarish", 'withdraw'), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}?user_id=${user.id}`),],
             ])
         );
         await ctx.reply("Uy Bo'limi", Markup.removeKeyboard())
@@ -241,7 +241,7 @@ export const userHome = async (ctx: Context, is_update: boolean = false) => {
             "👇 Boshlash uchun tugmalarni tanlang!",
             Markup.inlineKeyboard([
                 [Markup.button.callback("O'yinlar", "games"), Markup.button.callback("Mablag' solish", 'deposit')],
-                [Markup.button.callback("Mablag' chiqarish", 'withdraw'), Markup.button.callback("To'lovlar", 'transaktions')],
+                [Markup.button.callback("Mablag' chiqarish", 'withdraw'), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}?user_id=${user.id}`)],
             ])
         );
     }

@@ -65,14 +65,16 @@ export const transactions = async (req: Request, res: Response, next: NextFuncti
     try {
         const user_id = parseInt(req.params.id);
 
-        // Fetch transactions from the database
+// Fetch transactions from the database
         const transactionData = await transactionRepository.find({
-            where: {user_id: user_id, deleted: false},
-            order: {created_at: 'DESC'}
+            where: { user_id: user_id, deleted: false },
+            order: { id: 'DESC' }
         });
 
-        // Group transactions by date
-        const groupedTransactions = transactionData.reduce((acc: any, transaction) => {
+// Group transactions by date using a Map to maintain order
+        const groupedTransactionsMap = new Map();
+
+        transactionData.forEach(transaction => {
             const date = new Date(transaction.created_at).toLocaleDateString('ru-RU', {
                 day: 'numeric',
                 month: 'long',
@@ -87,19 +89,22 @@ export const transactions = async (req: Request, res: Response, next: NextFuncti
                 currency: "UZS",
             };
 
-            // Find or create the date group
-            const dateGroup = acc.find((group: any) => group.date === date);
-            if (dateGroup) {
-                dateGroup.items.push(transactionEntry);
-            } else {
-                acc.push({date: date, items: [transactionEntry]});
+            // Group transactions by date
+            if (!groupedTransactionsMap.has(date)) {
+                groupedTransactionsMap.set(date, []);
             }
+            groupedTransactionsMap.get(date).push(transactionEntry);
+        });
 
-            return acc;
-        }, []);
+// Convert Map to an array, preserving the date order
+        const groupedTransactions = Array.from(groupedTransactionsMap, ([date, items]) => ({
+            date,
+            items
+        }));
 
-        // Send the grouped data as JSON response
-        res.json({transactions: groupedTransactions});
+// Send the grouped data as JSON response
+        res.json({ transactions: groupedTransactions });
+
     } catch (err) {
         next(err);
     }

@@ -4,9 +4,14 @@ import {NextFunction, Request, Response} from "express";
 import axios from 'axios';
 import {RestException} from "../../middlewares/RestException";
 import {Wallet} from "../../entity/Wallet";
+import {PaymentMethod} from "../../entity/PaymentMethod";
+import {PaymentType} from "../../entity/enums/PaymentType";
+import {Transaction} from "../../entity/Transaction";
 
 const userRepository = AppDataSource.getRepository(User);
 const walletRepository = AppDataSource.getRepository(Wallet);
+const paymentMethodRepository = AppDataSource.getRepository(PaymentMethod);
+const transactionRepository = AppDataSource.getRepository(Transaction);
 
 
 export const sports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -43,7 +48,6 @@ export const user_amount = async (req: Request, res: Response, next: NextFunctio
             .andWhere("user.status = :userStatus", {userStatus: 'active'})
             .andWhere("user.deleted = :userDeleted", {userDeleted: false})
             .getOne();
-
 
 
         if (!wallet) {
@@ -118,15 +122,90 @@ export const user_data = async (req: Request, res: Response, next: NextFunction)
         if (!wallet) {
             throw RestException.notFound("Wallet");
         }
+
+        const paymentMethod = await paymentMethodRepository.findOne({
+            where: {
+                type: PaymentType.OUT,
+                deleted: false,
+                status: 'active'
+            }, order: {created_at: "DESC"}
+        })
+
         res.json({
             success: true,
             data: {
+                withdrawMethod: paymentMethod,
                 wallet_id: wallet.id,
                 currency: wallet.name,
                 user: {id: user.id, name: user.first_name + " " + user.last_name}
             }
         });
 
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const withdraw_request = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const {user_id, card_number, amount} = req.body;
+        if (!user_id || !card_number || !amount) {
+            throw RestException.badRequest("user_id, card_number, amount is required");
+        }
+        const existsUser = userRepository.exists({where: {id: user_id}})
+
+        if (!existsUser) {
+            throw RestException.notFound("USER")
+        }
+        const wallet = await AppDataSource.getRepository(Wallet)
+            .createQueryBuilder("wallet")
+            .innerJoinAndSelect("wallet.user", "user") // 'user' bilan qo'shib olish
+            .where("wallet.user_id = :user_id", {user_id})
+            .andWhere("wallet.is_current = :isCurrent", {isCurrent: true})
+            .andWhere("wallet.status = :status", {status: 'active'})
+            .andWhere("wallet.deleted = :deleted", {deleted: false})
+            .andWhere("user.status = :userStatus", {userStatus: 'active'})
+            .andWhere("user.deleted = :userDeleted", {userDeleted: false})
+            .getOne();
+        if (!wallet) {
+            throw RestException.notFound("WALLET")
+        }
+
+        if (wallet.amount < parseFloat(amount) || isNaN(parseFloat(amount))) {
+            throw RestException.badRequest("Hisobingizda mablag' yetarli emas");
+        }
+        const paymentMethod = await paymentMethodRepository.findOne({
+            where: {
+                type: PaymentType.OUT,
+                deleted: false,
+                status: 'active'
+            }, order: {created_at: "DESC"}
+        })
+        if (!paymentMethod) {
+            throw RestException.notFound("PAYMENT METHOD")
+        }
+
+
+        wallet.amount = parseFloat(wallet.amount.toString());
+
+        wallet.amount -= amount;
+        await walletRepository.save(wallet)
+        await transactionRepository.save(transactionRepository.create({
+            user_id: user_id,
+            wallet_id: wallet.id,
+            amount: amount,
+            category: "Withdraw",
+            platform: "Uzcard/Humo " + card_number,
+            card_number: card_number,
+            status: 'pending',
+            desc: '',
+        }));
+        res.json({
+            success: true,
+            data: {
+                amount: amount
+            }
+        });
     } catch (error) {
         next(error);
     }
