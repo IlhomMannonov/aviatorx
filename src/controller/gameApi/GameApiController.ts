@@ -74,7 +74,7 @@ export const update_wallet = async (req: Request, res: Response, next: NextFunct
         }
         wallet.amount = parseFloat(wallet.amount.toString());
         if (is_add === true) {
-                wallet.amount += parseFloat(amount);
+            wallet.amount += parseFloat(amount);
         } else {
             if (wallet.amount < parseFloat(amount)) {
                 throw RestException.badRequest("Insufficient balance");
@@ -90,3 +90,43 @@ export const update_wallet = async (req: Request, res: Response, next: NextFunct
     }
 }
 
+export const user_data = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const userId = parseInt(req.params.id);
+        if (!userId) {
+            throw RestException.badRequest("id is required");
+        }
+
+        const user = await userRepository.findOne({where: {id: userId}})
+
+        if (!user) {
+            throw RestException.notFound("User");
+        }
+
+        const wallet = await AppDataSource.getRepository(Wallet)
+            .createQueryBuilder("wallet")
+            .innerJoinAndSelect("wallet.user", "user") // 'user' bilan qo'shib olish
+            .where("wallet.user_id = :userId", {userId})
+            .andWhere("wallet.is_current = :isCurrent", {isCurrent: true})
+            .andWhere("wallet.status = :status", {status: 'active'})
+            .andWhere("wallet.deleted = :deleted", {deleted: false})
+            .andWhere("user.status = :userStatus", {userStatus: 'active'})
+            .andWhere("user.deleted = :userDeleted", {userDeleted: false})
+            .getOne();
+
+        if (!wallet) {
+            throw RestException.notFound("Wallet");
+        }
+        res.json({
+            success: true,
+            data: {
+                wallet_id: wallet.id,
+                currency: wallet.name,
+                user: {id: user.id, name: user.first_name + " " + user.last_name}
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}

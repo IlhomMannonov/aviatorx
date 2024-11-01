@@ -183,7 +183,7 @@ bot.action("deposit", async (ctx) => {
         if (user && paymentMethod.length > 0) {
 
             const paymentMethodButtons = paymentMethod.map((p) => [
-                Markup.button.url(`${p.name}: ${p_n(p.min)} ➡️ ${p_n(p.max)}`, `${p.url}`)
+                Markup.button.url(`${p.name}: ${p_n(p.min)} ➡️ ${p_n(p.max)}`, `${p.url}?start=txbet_${user.id}`)
 
             ])
             const backButton = [Markup.button.callback("Ortga 🔙", "go_home")];
@@ -196,13 +196,16 @@ bot.action("deposit", async (ctx) => {
         }
     }
 })
+
 function p_n(number: number) {
     const wholeNumber = Math.trunc(number); // Kasr qismini olib tashlaydi
     return new Intl.NumberFormat('en-US').format(wholeNumber); // Minglik ajratgich bilan formatlaydi
 }
+
 bot.action("go_home", async (ctx) => {
-  await  userHome(ctx, true)
+    await userHome(ctx, true)
 })
+
 
 export const setWebhook = (req: Request, res: Response) => {
     bot.handleUpdate(req.body);
