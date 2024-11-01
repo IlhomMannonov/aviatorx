@@ -9,12 +9,14 @@ import {PaymentType} from "../../entity/enums/PaymentType";
 import {Transaction} from "../../entity/Transaction";
 import {pay} from "telegraf/typings/button";
 import {Currency} from "../../entity/Currency";
+import {Game} from "../../entity/Game";
 
 const userRepository = AppDataSource.getRepository(User);
 const walletRepository = AppDataSource.getRepository(Wallet);
 const paymentMethodRepository = AppDataSource.getRepository(PaymentMethod);
 const transactionRepository = AppDataSource.getRepository(Transaction);
 const currencyRepository = AppDataSource.getRepository(Currency);
+const gameRepository = AppDataSource.getRepository(Game);
 
 
 export const sports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -215,5 +217,17 @@ export const withdraw_request = async (req: Request, res: Response, next: NextFu
         });
     } catch (error) {
         next(error);
+    }
+}
+
+export const games = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        gameRepository.find({where: {deleted: false, status: 'active'}, order: {id: "desc"}})
+            .then(data => {
+                res.json({success: true, data: data})
+            })
+
+    } catch (err) {
+        next(err)
     }
 }

@@ -43,7 +43,7 @@ export const uzPayBot = async (req: Request, res: Response, next: NextFunction):
             platform: "Humo/Uzcard",
             user_id: user_id,
             wallet_id: wallet.id,
-            status: 'succes',
+            status: 'success',
         });
         await transactionRepository.save(newTransaction);
 

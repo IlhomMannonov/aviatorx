@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/gameApi/GameApiController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/gameApi/GameApiController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/gameApi/PaymentControlller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/gameApi/PaymentControlller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Game.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Game.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/GameApiRouter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +155,7 @@
       <workItem from="1730228142790" duration="2881000" />
       <workItem from="1730307111939" duration="9274000" />
       <workItem from="1730371630118" duration="20920000" />
-      <workItem from="1730440725138" duration="26863000" />
+      <workItem from="1730440725138" duration="31719000" />
     </task>
     <servers />
   </component>

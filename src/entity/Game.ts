@@ -15,5 +15,10 @@ export class Game extends BaseEntityFull {
     @Column({name: 'game_id', nullable: true})
     game_id!: number;
 
+    @Column({name: 'img_url', nullable: true})
+    img_url!: string;
+
+
+
 
 }
