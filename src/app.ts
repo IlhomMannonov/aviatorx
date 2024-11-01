@@ -7,6 +7,7 @@ import {connectDB} from './config/db';
 import authRouter from "./routes/AuthRouter";
 import utilsController from "./routes/UtilsRouter";
 import gameApiRouter from "./routes/GameApiRouter";
+import paymentRouter from "./routes/PaymentRouter";
 import telegramBotRouter from "./routes/TelegramBotRouter";
 import aviatrxRouter from "./routes/AviatrxRouter";
 import cors from 'cors'; // CORS ni import qilish
@@ -24,6 +25,7 @@ app.use('/api/v1', authRouter);
 app.use('/api/v1', utilsController);
 app.use('/api/v1', gameApiRouter);
 app.use('/api/v1', aviatrxRouter);
+app.use('/api/v1', paymentRouter);
 app.use('/', telegramBotRouter);
 
 app.use(errorHandler);

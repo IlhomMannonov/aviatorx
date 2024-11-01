@@ -17,6 +17,7 @@ import {VerificationCode} from "../entity/VerificationCode";
 import {Country} from "../entity/Country";
 import {Payme} from "../entity/paymentBot/Payme";
 import {Game} from "../entity/Game";
+import {Transaction} from "../entity/Transaction";
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -42,7 +43,7 @@ export const AppDataSource = new DataSource({
         StaticOption,
         VerificationCode,
         Country,
-        Payme, Game
+        Payme, Game,Transaction
     ],
     synchronize: true,
 });
