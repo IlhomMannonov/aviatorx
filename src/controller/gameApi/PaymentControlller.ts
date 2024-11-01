@@ -42,7 +42,8 @@ export const uzPayBot = async (req: Request, res: Response, next: NextFunction):
             card_number: card_number,
             platform: "Humo/Uzcard",
             user_id: user_id,
-            wallet_id: wallet.id
+            wallet_id: wallet.id,
+            status: 'succes',
         });
         await transactionRepository.save(newTransaction);
 
@@ -59,3 +60,47 @@ export const uzPayBot = async (req: Request, res: Response, next: NextFunction):
         next(err);
     }
 };
+
+export const transactions = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const user_id = parseInt(req.params.id);
+
+        // Fetch transactions from the database
+        const transactionData = await transactionRepository.find({
+            where: {user_id: user_id, deleted: false},
+            order: {created_at: 'DESC'}
+        });
+
+        // Group transactions by date
+        const groupedTransactions = transactionData.reduce((acc: any, transaction) => {
+            const date = new Date(transaction.created_at).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            const transactionEntry = {
+                method: transaction.platform,
+                amount: transaction.amount.toLocaleString('ru-RU'),
+                status: transaction.status,
+                category: transaction.category,
+                currency: "UZS",
+            };
+
+            // Find or create the date group
+            const dateGroup = acc.find((group: any) => group.date === date);
+            if (dateGroup) {
+                dateGroup.items.push(transactionEntry);
+            } else {
+                acc.push({date: date, items: [transactionEntry]});
+            }
+
+            return acc;
+        }, []);
+
+        // Send the grouped data as JSON response
+        res.json({transactions: groupedTransactions});
+    } catch (err) {
+        next(err);
+    }
+}
