@@ -228,7 +228,7 @@ export const userHome = async (ctx: Context, is_update: boolean = false) => {
             "👇 Boshlash uchun tugmalarni tanlang!",
             Markup.inlineKeyboard([
                 [Markup.button.webApp("O'yinlar", `${process.env.WEB_URL}/game_list?user_id=${user.id}`), Markup.button.callback("Mablag' solish", 'deposit')],
-                [Markup.button.webApp("Mablag' chiqarish", `${process.env.WEB_URL}/withdraw?user_id=${user.id}`), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}?user_id=${user.id}`),],
+                [Markup.button.webApp("Mablag' chiqarish", `${process.env.WEB_URL}/withdraw?user_id=${user.id}`), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}/transactions?user_id=${user.id}`),],
             ])
         );
         await ctx.reply("Uy Bo'limi", Markup.removeKeyboard())
