@@ -1,6 +1,7 @@
 import {BaseEntityFull} from "./template/BaseEntityFull";
-import {Column, Entity} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
 import {PaymentType} from "./enums/PaymentType";
+import {Attachment} from "./Attachment";
 
 @Entity('payment_method')
 export class PaymentMethod extends BaseEntityFull {
@@ -18,5 +19,11 @@ export class PaymentMethod extends BaseEntityFull {
 
     @Column({type: 'text', nullable: true})
     url!: string;
-    
+    @Column({ name: 'attachment_id', nullable: true })
+    attachment_id!: number; // Foreign key sifatida saqlanadi
+
+    @ManyToOne(() => Attachment)
+    @JoinColumn({ name: 'attachment_id' }) // attachment_id ni foreign key sifatida belgilaydi
+    attachment!: Attachment;
+
 }

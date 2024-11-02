@@ -5,6 +5,7 @@ import {RestException} from "../../middlewares/RestException";
 import {Wallet} from "../../entity/Wallet";
 import {Transaction} from "../../entity/Transaction";
 import {PaymentMethod} from "../../entity/PaymentMethod";
+import {PaymentType} from "../../entity/enums/PaymentType";
 
 const userRepository = AppDataSource.getRepository(User);
 const walletRepository = AppDataSource.getRepository(Wallet);
@@ -115,7 +116,7 @@ export const transactions = async (req: Request, res: Response, next: NextFuncti
 
 export const payment_methods = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        paymentMethodRepository.find({where: {deleted: false, status: 'active'}, order: {id: 'DESC'}})
+        paymentMethodRepository.find({where: {deleted: false, status: 'active', type:PaymentType.OUT}, order: {id: 'DESC'}})
         .then((data) => res.json({success: true, data: data}))
 
     }catch (err)
