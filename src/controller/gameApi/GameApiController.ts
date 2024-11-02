@@ -229,7 +229,7 @@ export const games = async (req: Request, res: Response, next: NextFunction): Pr
             "game.name",
             "game.status",
             "game.deleted",
-            "attachment.file_name" // attachment dan faqat fileName ni tanlaymiz
+            "attachment.id" // attachment dan faqat fileName ni tanlaymiz
         ])
         .where("game.deleted = :deleted", { deleted: false })
         .andWhere("game.status = :status", { status: "active" })
