@@ -4,10 +4,12 @@ import {User} from "../../entity/User";
 import {RestException} from "../../middlewares/RestException";
 import {Wallet} from "../../entity/Wallet";
 import {Transaction} from "../../entity/Transaction";
+import {PaymentMethod} from "../../entity/PaymentMethod";
 
 const userRepository = AppDataSource.getRepository(User);
 const walletRepository = AppDataSource.getRepository(Wallet);
 const transactionRepository = AppDataSource.getRepository(Transaction);
+const paymentMethodRepository = AppDataSource.getRepository(PaymentMethod);
 
 export const uzPayBot = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -67,8 +69,8 @@ export const transactions = async (req: Request, res: Response, next: NextFuncti
 
 // Fetch transactions from the database
         const transactionData = await transactionRepository.find({
-            where: { user_id: user_id, deleted: false },
-            order: { id: 'DESC' }
+            where: {user_id: user_id, deleted: false},
+            order: {id: 'DESC'}
         });
 
 // Group transactions by date using a Map to maintain order
@@ -103,9 +105,21 @@ export const transactions = async (req: Request, res: Response, next: NextFuncti
         }));
 
 // Send the grouped data as JSON response
-        res.json({ transactions: groupedTransactions });
+        res.json({transactions: groupedTransactions});
 
     } catch (err) {
+        next(err);
+    }
+}
+
+
+export const payment_methods = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        paymentMethodRepository.find({where: {deleted: false, status: 'active'}, order: {id: 'DESC'}})
+        .then((data) => res.json({success: true, data: data}))
+
+    }catch (err)
+    {
         next(err);
     }
 }

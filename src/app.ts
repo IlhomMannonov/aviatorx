@@ -10,7 +10,8 @@ import gameApiRouter from "./routes/GameApiRouter";
 import paymentRouter from "./routes/PaymentRouter";
 import telegramBotRouter from "./routes/TelegramBotRouter";
 import aviatrxRouter from "./routes/AviatrxRouter";
-import cors from 'cors'; // CORS ni import qilish
+import cors from 'cors';
+import attachmentRouter from "./routes/AttachmentRouter"; // CORS ni import qilish
 const app: Application = express();
 
 // PostgreSQL bazasiga ulanish
@@ -26,6 +27,7 @@ app.use('/api/v1', utilsController);
 app.use('/api/v1', gameApiRouter);
 app.use('/api/v1', aviatrxRouter);
 app.use('/api/v1', paymentRouter);
+app.use('/api/v1/attachment', attachmentRouter);
 app.use('/', telegramBotRouter);
 
 app.use(errorHandler);

@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {uzPayBot} from "../controller/gameApi/PaymentControlller";
+import {payment_methods, uzPayBot} from "../controller/gameApi/PaymentControlller";
 
 
 const router: Router = Router();
@@ -7,5 +7,7 @@ const router: Router = Router();
 
 router.route('/uz-pay-bot-deposit')
     .post(uzPayBot)
+router.route("/payment-methods")
+    .get(payment_methods)
 
 export default router;
