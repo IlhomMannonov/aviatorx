@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e5fd9bc2-994f-45ac-88bb-012d084e1e8a" name="Changes" comment="adsad">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/gameApi/PaymentControlller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/gameApi/PaymentControlller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/telegram-bot/MainBot.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Attachment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Attachment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/PaymentMethod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/PaymentMethod.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +154,7 @@
       <workItem from="1730371630118" duration="20920000" />
       <workItem from="1730440725138" duration="32950000" />
       <workItem from="1730496058847" duration="206000" />
-      <workItem from="1730533634686" duration="11675000" />
+      <workItem from="1730533634686" duration="12110000" />
     </task>
     <servers />
   </component>

@@ -227,7 +227,7 @@ export const userHome = async (ctx: Context, is_update: boolean = false) => {
             "\n" +
             "👇 Boshlash uchun tugmalarni tanlang!",
             Markup.inlineKeyboard([
-                [Markup.button.webApp("O'yinlar", `${process.env.WEB_URL}/game_list?user_id=${user.id}`), Markup.button.webApp("Mablag' solish", `${process.env.WEB_URL}/payment_methods`)],
+                [Markup.button.webApp("O'yinlar", `${process.env.WEB_URL}/game_list?user_id=${user.id}`), Markup.button.webApp("Mablag' solish", `${process.env.WEB_URL}/payment_methods?user_id=${user.id}`)],
                 [Markup.button.webApp("Mablag' chiqarish", `${process.env.WEB_URL}/withdraw?user_id=${user.id}`), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}/transactions?user_id=${user.id}`),],
             ])
         );
@@ -240,7 +240,7 @@ export const userHome = async (ctx: Context, is_update: boolean = false) => {
             "\n" +
             "👇 Boshlash uchun tugmalarni tanlang!",
             Markup.inlineKeyboard([
-                [Markup.button.webApp("O'yinlar", `${process.env.WEB_URL}/game_list?user_id=${user.id}`), Markup.button.webApp("Mablag' solish", `${process.env.WEB_URL}/payment_methods`)],
+                [Markup.button.webApp("O'yinlar", `${process.env.WEB_URL}/game_list?user_id=${user.id}`), Markup.button.webApp("Mablag' solish", `${process.env.WEB_URL}/payment_methods?user_id=${user.id}`)],
                 [Markup.button.webApp("Mablag' chiqarish", `${process.env.WEB_URL}/withdraw?user_id=${user.id}`), Markup.button.webApp("To'lovlar", `${process.env.WEB_URL}/transactions?user_id=${user.id}`)],
             ])
         );
