@@ -97,12 +97,20 @@ export const getFile = async (req: Request, res: Response, next: NextFunction): 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads'); // Fayllar saqlanadigan papka
+        const uploadPath = 'uploads';
+
+        // Papka mavjudligini tekshirish va kerak bo'lsa yaratish
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+
+        cb(null, uploadPath); // Fayllar saqlanadigan papka
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname)); // Fayl nomini vaqt tamg'asi bilan o'zgartiramiz
     },
 });
+
 
 // Bir nechta faylni yuklash uchun `upload.array()` dan foydalanamiz
 const upload = multer({storage: storage}).array('files', 10); // `files` - bu form field nomi, `10` - yuklanadigan fayllar soni limiti

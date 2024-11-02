@@ -221,13 +221,24 @@ export const withdraw_request = async (req: Request, res: Response, next: NextFu
 }
 
 export const games = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        gameRepository.find({where: {deleted: false, status: 'active'}, order: {id: "desc"}})
-            .then(data => {
-                res.json({success: true, data: data})
-            })
-
-    } catch (err) {
-        next(err)
-    }
+    gameRepository
+        .createQueryBuilder("game")
+        .leftJoinAndSelect("game.attachment_id", "attachment")
+        .select([
+            "game.id",
+            "game.name",
+            "game.status",
+            "game.deleted",
+            "attachment.file_name" // attachment dan faqat fileName ni tanlaymiz
+        ])
+        .where("game.deleted = :deleted", { deleted: false })
+        .andWhere("game.status = :status", { status: "active" })
+        .orderBy("game.id", "DESC")
+        .getMany()
+        .then(data => {
+            res.json({ success: true, data: data });
+        })
+        .catch(error => {
+            res.status(500).json({ success: false, message: 'Xato yuz berdi', error: error.message });
+        });
 }

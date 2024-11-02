@@ -1,5 +1,6 @@
 import {BaseEntityFull} from "./template/BaseEntityFull";
-import {Column, Entity} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {Attachment} from "./Attachment";
 
 
 @Entity('game')
@@ -18,6 +19,10 @@ export class Game extends BaseEntityFull {
     @Column({name: 'img_url', nullable: true})
     img_url!: string;
 
+
+    @ManyToOne(() => Attachment, attachment => attachment.id)
+    @Column({name: 'attachment_id', nullable: true})
+    attachment_id!: number; // Foreign key sifatida saqlanadi
 
 
 
