@@ -223,7 +223,7 @@ export const withdraw_request = async (req: Request, res: Response, next: NextFu
 export const games = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     gameRepository
         .createQueryBuilder("game")
-        .leftJoinAndSelect("game.attachment_id", "attachment")
+        .leftJoinAndSelect("game.attachment", "attachment")
         .select([
             "game.id",
             "game.name",

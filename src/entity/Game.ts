@@ -20,9 +20,12 @@ export class Game extends BaseEntityFull {
     img_url!: string;
 
 
-    @ManyToOne(() => Attachment, attachment => attachment.id)
-    @Column({name: 'attachment_id', nullable: true})
+    @Column({ name: 'attachment_id', nullable: true })
     attachment_id!: number; // Foreign key sifatida saqlanadi
+
+    @ManyToOne(() => Attachment)
+    @JoinColumn({ name: 'attachment_id' }) // attachment_id ni foreign key sifatida belgilaydi
+    attachment!: Attachment;
 
 
 
